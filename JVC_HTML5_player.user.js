@@ -58,6 +58,11 @@ function loadNativePlayer(element) {
 		parent.empty();
 		// Insert native player element
 		parent.append('<video id="native-player-'+id+'" width="'+data.width+'" height="'+data.height+'" controls></video>');
+		// Insert resolution div
+		var resolutionDiv = $('<div class="bloc-tags-default"></div>').appendTo(parent);
+		// Insert video icon
+		resolutionDiv.append('<div class="tag-arrow"><span class="icon-play" style="transform: none;"></span><div class="arrow"></div></div>');
+		// Insert each resolution button
 		for (var index in data.sources) {
 			// Get source file and label
 			var file = data.sources[index].file;
@@ -66,7 +71,7 @@ function loadNativePlayer(element) {
 			if (!file)
 				continue;
 			// Append source file button
-			parent.append('<a href="#" id="native-player-'+id+'-'+label+'"'+' class="btn-jv-tag" style="margin-right: 8px;" data-id="'+id+'" data-source="'+file+'"> '+label+' </a>');
+			resolutionDiv.append('<a href="#" id="native-player-'+id+'-'+label+'"'+' class="btn-jv-tag" style="margin-left: 8px;" data-id="'+id+'" data-source="'+file+'"> '+label+' </a>');
 			// Attach source file button handler
 			$('#native-player-'+id+'-'+label).on('click', function (event) {
 				// Fire load video action
@@ -76,7 +81,8 @@ function loadNativePlayer(element) {
 			});
 		}
 		// Load default video
-		loadVideo(id, data.sources[1].file);
+		var defaultSource = (data.sources.lenght > 1 && data.sources[0].label == '1080p') ? 1 : 0;
+		loadVideo(id, data.sources[defaultSource].file);
 	})
 	.fail(function () {
 		console.warn('Unable to get video configuration');
