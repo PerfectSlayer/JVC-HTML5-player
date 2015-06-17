@@ -36,7 +36,7 @@ function loadNativePlayer(element) {
 		if (parent.hasClass('player-contenu')) {
 			// Mark parent as found
 			parentFound = true;
-			// Stop lookind for parent
+			// Stop looking for parent
 			break;
 		}
 		// Get parent
@@ -51,7 +51,7 @@ function loadNativePlayer(element) {
 	/*
 	 * Insert native player.
 	 */
-	// Get video config
+	// Get video configuration
 	$.ajax('http://www.jeuxvideo.com/contenu/medias/video.php?q=config&id='+id)
 	.done(function (data) {
 		// Clear parent
@@ -66,12 +66,12 @@ function loadNativePlayer(element) {
 			if (!file)
 				continue;
 			// Append source file button
-			parent.append('<a href="#" id="native-player-'+id+'-'+label+'"'+' style="display:inline;" data-id="'+id+'" data-source="'+file+'"> '+label+' </a>');
+			parent.append('<a href="#" id="native-player-'+id+'-'+label+'"'+' class="btn-jv-tag" style="margin-right: 8px;" data-id="'+id+'" data-source="'+file+'"> '+label+' </a>');
 			// Attach source file button handler
 			$('#native-player-'+id+'-'+label).on('click', function (event) {
 				// Fire load video action
 				actionLoadVideo(event);
-				// Revent link loading
+				// Prevent link loading
 				return false;
 			});
 		}
