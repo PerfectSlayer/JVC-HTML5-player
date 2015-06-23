@@ -57,7 +57,7 @@ function loadNativePlayer(element) {
 		// Clear parent
 		parent.empty();
 		// Insert native player element
-		parent.append('<video id="native-player-'+id+'" width="'+data.width+'" height="'+data.height+'" controls></video>');
+		parent.append('<video id="native-player-'+id+'" width="'+data.width+'" height="'+data.height+'" controls poster="'+data.image+'"></video>');
 		// Insert resolution div
 		var resolutionDiv = $('<div class="bloc-tags-default"></div>').appendTo(parent);
 		// Insert video icon
