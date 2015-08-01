@@ -56,10 +56,8 @@ function loadNativePlayer(element) {
 	.done(function (data) {
 		// Clear parent
 		parent.empty();
-		// Insert native player element
-		parent.append('<video id="native-player-'+id+'" width="'+data.width+'" height="'+data.height+'" controls poster="'+data.image+'"></video>');
 		// Insert resolution div
-		var resolutionDiv = $('<div class="bloc-tags-default"></div>').appendTo(parent);
+		var resolutionDiv = $('<div id="native-player-'+id+'-resolutions" class="bloc-tags-default" style="position: absolute; margin: 0px 0px 0px 3px; display:none"></div>').appendTo(parent);
 		// Insert video icon
 		resolutionDiv.append('<div class="tag-arrow"><span class="icon-play" style="transform: none;"></span><div class="arrow"></div></div>');
 		// Insert each resolution button
@@ -80,6 +78,16 @@ function loadNativePlayer(element) {
 				return false;
 			});
 		}
+		// Insert native player element
+		var nativeVideo = parent.append('<video id="native-player-'+id+'" width="'+data.width+'" height="'+data.height+'" controls poster="'+data.image+'"></video>');
+		// Bind hover callbacks
+		nativeVideo.hover(function () {
+			// Fade in resolution div
+			$('#native-player-'+id+'-resolutions').fadeIn();
+		}, function () {
+			// Fade out resolution div
+			$('#native-player-'+id+'-resolutions').fadeOut();
+		});
 		// Load default video
 		var defaultSource = (data.sources.lenght > 1 && data.sources[0].label == '1080p') ? 1 : 0;
 		loadVideo(id, data.sources[defaultSource].file);
